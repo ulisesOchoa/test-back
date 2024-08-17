@@ -7,6 +7,17 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Schema(
+ *     schema="StoreCustomerRequest",
+ *     type="object",
+ *     required={"first_name", "last_name", "identity_number", "date_of_joining"},
+ *     @OA\Property(property="first_name", type="string", example="John"),
+ *     @OA\Property(property="last_name", type="string", example="Doe"),
+ *     @OA\Property(property="identity_number", type="string", example="123456789"),
+ *     @OA\Property(property="date_of_joining", type="string", format="date", example="2024-08-16")
+ * )
+ */
 class StoreCustomerRequest extends FormRequest
 {
     public function authorize(): bool
