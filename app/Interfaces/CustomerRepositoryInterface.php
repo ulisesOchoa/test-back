@@ -9,7 +9,7 @@ interface CustomerRepositoryInterface
 {
     public function getAll() : Collection;
 
-    public function getById(int $id) : Model;
+    public function getById(int $id) : ?Model;
 
     public function create(array $data) : bool;
 

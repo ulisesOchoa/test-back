@@ -14,9 +14,9 @@ class CustomerRepository implements CustomerRepositoryInterface
         return Customer::all();
     }
 
-    public function getById(int $id): Customer
+    public function getById(int $id): ?Customer
     {
-        return Customer::find($id);
+        return Customer::findOrFail($id);
     }
 
     public function create(array $data): bool
@@ -27,10 +27,7 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function update(int $id, array $data) : bool
     {
-        $customer = Customer::find($id);
-
-        if (!$customer)
-            return false;
+        $customer = Customer::findOrFail($id);
 
         return $customer->update($data);
     }

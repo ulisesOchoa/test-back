@@ -8,7 +8,6 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Interfaces\CustomerRepositoryInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,7 +41,7 @@ class CustomerController extends Controller
             DB::commit();
 
             return ApiResponseHelper::sendResponse(
-                new CustomerResource(null),
+                true,
                 'Record create successful',
                 Response::HTTP_CREATED
             );
@@ -53,13 +52,17 @@ class CustomerController extends Controller
 
     public function show(string $id)
     {
-        $customer = $this->customerRepository->getById($id);
+        try {
+            $customer = $this->customerRepository->getById($id);
 
-        return ApiResponseHelper::sendResponse(
-            new CustomerResource($customer),
-            '',
-            Response::HTTP_OK
-        );
+            return ApiResponseHelper::sendResponse(
+                new CustomerResource($customer),
+                '',
+                Response::HTTP_OK
+            );
+        } catch (\Exception $e) {
+            return ApiResponseHelper::throw($e, $e->getMessage());
+        }
     }
 
     public function update(UpdateCustomerRequest $request, string $id)
@@ -72,12 +75,12 @@ class CustomerController extends Controller
             DB::commit();
 
             return ApiResponseHelper::sendResponse(
-                new CustomerResource(null),
+                true,
                 'Record updated successful',
                 Response::HTTP_OK
             );
         } catch (\Exception $e) {
-            return ApiResponseHelper::rollBack($e);
+            return ApiResponseHelper::rollBack($e, $e->getMessage());
         }
     }
 
