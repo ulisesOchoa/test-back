@@ -306,6 +306,302 @@
                     }
                 }
             }
+        },
+        "/api/suppliers": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Get all suppliers",
+                "operationId": "e4b77c54ae9c7d54d8b86e6814671e4e",
+                "responses": {
+                    "200": {
+                        "description": "List of suppliers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SupplierResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Create a new Suppliers",
+                "operationId": "6ab41d0199f3b2d86517e961dce552c3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreSupplierRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Suppliers created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Record create successful"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/suppliers/{id}": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Retrieve a specific suppliers",
+                "operationId": "9066c9106dc65a1b0ad71e51077f7dfc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the suppliers to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Suppliers retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Suppliers not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Sustomer not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An error occurred"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Update a specific Suppliers",
+                "operationId": "60445973b04b9b4dfde7acd2133e1871",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Suppliers to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "123"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateSupplierRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Suppliers updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Record updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Suppliers not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Suppliers not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An error occurred"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Delete a specific supplier",
+                "operationId": "57bdb0fe22bcb3ea27ff38ac34fb1b48",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the supplier to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Supplier deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Record deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Supplier not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Supplier not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An error occurred"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -331,6 +627,34 @@
                         "example": "123456789"
                     },
                     "date_of_joining": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2024-08-16"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreSupplierRequest": {
+                "required": [
+                    "company_name",
+                    "country",
+                    "cif",
+                    "registration_date"
+                ],
+                "properties": {
+                    "company_name": {
+                        "type": "string",
+                        "example": "Tech Solutions"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "Spain"
+                    },
+                    "cif": {
+                        "type": "string",
+                        "example": "A12345678"
+                    },
+                    "registration_date": {
                         "type": "string",
                         "format": "date",
                         "example": "2024-08-16"
@@ -367,6 +691,34 @@
                 },
                 "type": "object"
             },
+            "UpdateSupplierRequest": {
+                "required": [
+                    "company_name",
+                    "country",
+                    "cif",
+                    "registration_date"
+                ],
+                "properties": {
+                    "company_name": {
+                        "type": "string",
+                        "example": "Tech Solutions"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "Spain"
+                    },
+                    "cif": {
+                        "type": "string",
+                        "example": "A12345678"
+                    },
+                    "registration_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2024-08-16"
+                    }
+                },
+                "type": "object"
+            },
             "CustomerResource": {
                 "properties": {
                     "id": {
@@ -392,10 +744,40 @@
                     }
                 },
                 "type": "object"
+            },
+            "SupplierResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "company_name": {
+                        "type": "string",
+                        "example": "ABC Corp"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "USA"
+                    },
+                    "cif": {
+                        "type": "string",
+                        "example": "A12345678"
+                    },
+                    "registration_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2024-08-17"
+                    }
+                },
+                "type": "object"
             }
         }
     },
     "tags": [
+        {
+            "name": "Suppliers",
+            "description": "Operations related to suppliers"
+        },
         {
             "name": "Customer",
             "description": "Customer"
