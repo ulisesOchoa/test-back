@@ -35,7 +35,6 @@ class QualityController extends Controller
     public function index()
     {
         $data = $this->qualityRepository->getAll();
-
         return ApiResponseHelper::sendResponse(
             QualityResource::collection($data),
             '',

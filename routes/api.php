@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\CustomerController;
+use App\Http\Controllers\api\QualityController;
 use App\Http\Controllers\api\SupplierController;
-use App\Repositories\QualityRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,4 +12,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('/customers', CustomerController::class);
 Route::apiResource('/suppliers', SupplierController::class);
-Route::apiResource('/qualities', QualityRepository::class);
+Route::apiResource('/qualities', QualityController::class);

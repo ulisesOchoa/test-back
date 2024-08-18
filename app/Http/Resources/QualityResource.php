@@ -28,8 +28,9 @@ class QualityResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'supplier_id' => $this->supplier_id,
-            'created_at' => $this->created_at->toIso8601String(),
-            'updated_at' => $this->updated_at->toIso8601String(),
+            'company_name' => $this->supplier->company_name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

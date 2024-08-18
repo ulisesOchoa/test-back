@@ -11,7 +11,7 @@ class QualityRepository implements QualityRepositoryInterface
 
     public function getAll(): Collection
     {
-        return Quality::all();
+        return Quality::with('supplier')->get();
     }
 
     public function getById(int $id): ?Quality
