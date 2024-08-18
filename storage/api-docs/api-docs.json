@@ -307,6 +307,95 @@
                 }
             }
         },
+        "/api/qualities": {
+            "get": {
+                "tags": [
+                    "Quality"
+                ],
+                "summary": "Get all qualities",
+                "operationId": "7f3894cc2136694d1dfffae22d02eee8",
+                "responses": {
+                    "200": {
+                        "description": "List of qualities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/QualityResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/qualities/{id}": {
+            "get": {
+                "tags": [
+                    "Quality"
+                ],
+                "summary": "Retrieve a specific quality",
+                "operationId": "287a58553aab20702d706681dce713b3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the quality to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Quality retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QualityResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Quality not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Quality not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An error occurred"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/suppliers": {
             "get": {
                 "tags": [
@@ -745,6 +834,38 @@
                 },
                 "type": "object"
             },
+            "QualityResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "A"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 100
+                    },
+                    "supplier_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-16T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-16T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
             "SupplierResource": {
                 "properties": {
                     "id": {
@@ -781,6 +902,10 @@
         {
             "name": "Customer",
             "description": "Customer"
+        },
+        {
+            "name": "Quality",
+            "description": "Quality"
         }
     ]
 }
