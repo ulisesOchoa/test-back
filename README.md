@@ -11,3 +11,4 @@
 - `chmod -R 775 /var/www/storage /var/www/bootstrap/cache`
 - `composer setup`
 - `php artisan db:seed`
+- ahora puedes ver si está corriendo la aplicación en el enlace http://localhost:8080/api/documentation
