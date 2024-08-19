@@ -11,7 +11,7 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function getAll(): Collection
     {
-        return Customer::all();
+        return Customer::with(['assignment.quality'])->get();
     }
 
     public function getById(int $id): ?Customer
@@ -19,13 +19,13 @@ class CustomerRepository implements CustomerRepositoryInterface
         return Customer::findOrFail($id);
     }
 
-    public function create(array $data): bool
+    public function create(array $data): int
     {
         $customer = Customer::create($data);
-        return (bool)$customer;
+        return $customer->id;
     }
 
-    public function update(int $id, array $data) : bool
+    public function update(int $id, array $data): bool
     {
         $customer = Customer::findOrFail($id);
 

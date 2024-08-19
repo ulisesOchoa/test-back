@@ -8,6 +8,10 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Interfaces\CustomerRepositoryInterface;
+use App\Models\Assignment;
+use App\Models\Quality;
+use App\Models\Supplier;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -88,7 +92,22 @@ class CustomerController extends Controller
 
         DB::beginTransaction();
         try {
-            $this->customerRepository->create($data);
+            $customer = [
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'identity_number' => $data['identity_number'],
+                'date_of_joining' => $data['date_of_joining'],
+            ];
+            $customerId = $this->customerRepository->create($customer);
+
+            Assignment::create([
+                'customer_id' => $customerId,
+                'quality_id' => $data['quality_id'],
+                'purchase_price' => $data['purchase_price'],
+                'sale_price' => $data['sale_price'],
+                'profit' => $data['profit'],
+            ]);
+
             DB::commit();
 
             return ApiResponseHelper::sendResponse(
@@ -273,5 +292,20 @@ class CustomerController extends Controller
             'Record deleted successful',
             Response::HTTP_OK
         );
+    }
+
+    /**
+     * Este enpoin en unsistema real
+     * estaria en el servicio back for front
+     * si se v a utilizar el pratrón BFF
+     * por eso no l odecoumento a swager
+     * @return JsonResponse
+     */
+    public function initForm()
+    {
+        return response()->json([
+            'qualities' => Quality::select(['id as value', 'name as label'])->get(),
+//            'suppliers' => Supplier::select(['id as value', 'company_name as label'])->get(),
+        ]);
     }
 }

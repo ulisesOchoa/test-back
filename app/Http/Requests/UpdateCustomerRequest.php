@@ -11,28 +11,25 @@ use Symfony\Component\HttpFoundation\Response;
  * @OA\Schema(
  *     schema="UpdateCustomerRequest",
  *     type="object",
- *     title="Update Customer Request",
- *     description="Request body data for updating a customer",
- *     required={"first_name", "last_name", "identity_number", "date_of_joining"},
- *     @OA\Property(
- *         property="first_name",
- *         type="string",
- *         description="First name of the customer",
- *         example="John"
- *     ),
- *     @OA\Property(
- *         property="last_name",
- *         type="string",
- *         description="Last name of the customer",
- *         example="Doe"
- *     ),
- *     @OA\Property(
- *         property="date_of_joining",
- *         type="string",
- *         format="date",
- *         description="Date when the customer joined",
- *         example="2023-01-15"
- *     )
+ *     required={
+ *         "first_name",
+ *         "last_name",
+ *         "identity_number",
+ *         "date_of_joining",
+ *         "purchase_price",
+ *         "sale_price",
+ *         "profit",
+ *         "quality_id",
+ *         "supplier_id"
+ *     },
+ *     @OA\Property(property="first_name", type="string", example="John"),
+ *     @OA\Property(property="last_name", type="string", example="Doe"),
+ *     @OA\Property(property="identity_number", type="string", example="123456789"),
+ *     @OA\Property(property="date_of_joining", type="string", format="date", example="2024-08-16"),
+ *     @OA\Property(property="purchase_price", type="number", format="float", example=100.50),
+ *     @OA\Property(property="sale_price", type="number", format="float", example=150.75),
+ *     @OA\Property(property="profit", type="number", format="float", example=50.25),
+ *     @OA\Property(property="quality_id", type="integer", example=1),
  * )
  */
 class UpdateCustomerRequest extends FormRequest
@@ -47,7 +44,12 @@ class UpdateCustomerRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'date_of_joining' => 'required|date',
+            'identity_number' => 'required|min:5|max:20|unique:customers,identity_number,'. $this->id,
+            'date_of_joining' => 'required',
+            'quality_id' => 'required',
+            'purchase_price' => 'required',
+            'sale_price' => 'required',
+            'profit' => 'required',
         ];
     }
 
@@ -55,7 +57,13 @@ class UpdateCustomerRequest extends FormRequest
         return [
             'first_name.required' => 'First name is required',
             'last_name.required' => 'Last name is required',
+            'identity_number.required' => 'Identity number is required',
+            'identify_number.unique' => 'Identity number already exists',
             'date_of_joining.required' => 'Date of joining is required',
+            'purchase_price' => 'Purchase price is required',
+            'sale_price' => 'Sale price is required',
+            'profit' => 'Profit is required',
+            'quality_id' => 'Quality is required',
         ];
     }
 

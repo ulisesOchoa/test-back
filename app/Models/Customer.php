@@ -15,4 +15,9 @@ class Customer extends Model
         'identity_number',
         'date_of_joining'
     ];
+
+    public function assignment()
+    {
+        return $this->hasOne(Assignment::class);
+    }
 }

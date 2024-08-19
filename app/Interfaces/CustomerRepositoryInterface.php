@@ -11,7 +11,7 @@ interface CustomerRepositoryInterface
 
     public function getById(int $id) : ?Model;
 
-    public function create(array $data) : bool;
+    public function create(array $data) : int;
 
     public function update(int $id, array $data) : bool;
 

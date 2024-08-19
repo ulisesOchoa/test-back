@@ -10,8 +10,11 @@ class Assignment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'client_id',
+        'customer_id',
         'quality_id',
+        'purchase_price',
+        'sale_price',
+        'profit',
     ];
 
     public function Customer()

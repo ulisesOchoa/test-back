@@ -10,6 +10,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::get('/customers/initform', CustomerController::class . '@initForm');
+
 Route::apiResource('/customers', CustomerController::class);
 Route::apiResource('/suppliers', SupplierController::class);
 Route::apiResource('/qualities', QualityController::class);
+
