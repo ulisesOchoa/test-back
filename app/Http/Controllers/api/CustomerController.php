@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Classes\ApiResponseHelper;
+use App\Exports\CustomerExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
@@ -13,6 +14,7 @@ use App\Models\Quality;
 use App\Models\Supplier;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -292,6 +294,33 @@ class CustomerController extends Controller
             'Record deleted successful',
             Response::HTTP_OK
         );
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/customers/export",
+     *     summary="Exporta los datos de clientes a un archivo Excel",
+     *     tags={"Customer"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Archivo Excel con los datos de clientes exportado correctamente",
+     *         @OA\MediaType(
+     *             mediaType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+     *             @OA\Schema(
+     *                 type="string",
+     *                 format="binary"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Error al exportar el archivo"
+     *     )
+     * )
+     */
+    public function export()
+    {
+        return Excel::download(new CustomerExport, 'customers.xlsx');
     }
 
     /**

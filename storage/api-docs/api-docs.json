@@ -307,6 +307,31 @@
                 }
             }
         },
+        "/customers/export": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Exporta los datos de clientes a un archivo Excel",
+                "operationId": "81201791ce21f17273b3d1467f209d4a",
+                "responses": {
+                    "200": {
+                        "description": "Archivo Excel con los datos de clientes exportado correctamente",
+                        "content": {
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al exportar el archivo"
+                    }
+                }
+            }
+        },
         "/api/qualities": {
             "get": {
                 "tags": [
